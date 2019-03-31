@@ -9,7 +9,7 @@ import com.mmall.service.IOrderService;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import com.mmall.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class OrderManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
@@ -64,7 +64,7 @@ public class OrderManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
@@ -88,7 +88,7 @@ public class OrderManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
@@ -111,7 +111,7 @@ public class OrderManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
 
         if (user == null) {

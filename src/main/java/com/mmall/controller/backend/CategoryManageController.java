@@ -9,7 +9,7 @@ import com.mmall.service.ICategoryService;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -43,7 +42,7 @@ public class CategoryManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError("未登录");
@@ -75,7 +74,7 @@ public class CategoryManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
@@ -98,8 +97,9 @@ public class CategoryManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
+        String strUser = RedisShardedPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
@@ -124,8 +124,9 @@ public class CategoryManageController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
+        String strUser = RedisShardedPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {

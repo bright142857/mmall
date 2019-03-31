@@ -9,7 +9,7 @@ import com.mmall.pojo.User;
 import com.mmall.service.IShippingService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by geely
@@ -40,7 +39,7 @@ public class ShippingController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -55,8 +54,9 @@ public class ShippingController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){
+        String strUser = RedisShardedPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if(user ==null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingService.del(user.getId(),shippingId);
@@ -69,8 +69,9 @@ public class ShippingController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){
+        String strUser = RedisShardedPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if(user ==null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingService.update(user.getId(),shipping);
@@ -84,7 +85,7 @@ public class ShippingController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
         if(user ==null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -102,7 +103,7 @@ public class ShippingController {
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
-        String strUser = RedisPoolUtil.get(token);
+        String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
