@@ -24,6 +24,19 @@
   </filter-mapping>
 
 
+  <!-- 二期 重置session超时时间-->
+  <filter>
+    <filter-name>sessionExpireFliter</filter-name>
+    <filter-class>com.mmall.controller.common.SessionExpireFliter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>sessionExpireFliter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+
+
+
   <listener>
     <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
