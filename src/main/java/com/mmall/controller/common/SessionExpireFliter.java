@@ -33,6 +33,7 @@ public class SessionExpireFliter implements Filter {
               RedisPoolUtil.expire(token, Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
           }
         }
+        filterChain.doFilter(servletRequest,servletResponse);
     }
 
     @Override
