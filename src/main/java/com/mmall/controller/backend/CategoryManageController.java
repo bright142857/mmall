@@ -7,12 +7,17 @@ import com.mmall.pojo.Category;
 import com.mmall.pojo.User;
 import com.mmall.service.ICategoryService;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -26,16 +31,20 @@ public class CategoryManageController {
 
     /**
      * ###获取品类子节点(平级)
-     * @param session
      * @param categoryId
      * @return
      */
     @RequestMapping("get_category.do")
     @ResponseBody
     public ServerResponse<List<Category>> getCategory(
-            HttpSession session,
+            HttpServletRequest request,
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError("未登录");
         }
@@ -58,12 +67,16 @@ public class CategoryManageController {
     @RequestMapping("add_category.do")
     @ResponseBody
     public  ServerResponse<String> addCategory(
-            HttpSession session,
+           HttpServletRequest request,
              @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId,
             String categoryName
         ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
@@ -74,16 +87,19 @@ public class CategoryManageController {
 
     /**
      * .修改品类名字
-     * @param session
      * @param categoryId
      * @param categoryName
      * @return
      */
     @RequestMapping("set_category_name.do")
     @ResponseBody
-    public  ServerResponse<String> setCategoryName(HttpSession session,Integer categoryId,String categoryName){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
+    public  ServerResponse<String> setCategoryName(HttpServletRequest request,Integer categoryId,String categoryName){
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
@@ -102,10 +118,14 @@ public class CategoryManageController {
     @RequestMapping("get_deep_category.do")
     @ResponseBody
     public ServerResponse<List<Integer>> getDeepCategory(
-            HttpSession session,
+            HttpServletRequest request,
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {

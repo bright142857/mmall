@@ -10,7 +10,10 @@ import com.mmall.pojo.User;
 import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
 import com.mmall.util.PropertiesUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +40,19 @@ public class ProductManagerController {
     private IFileService iFileService;
     /**
      * 新增或者修改
-     * @param session
      * @param product
      * @return
      */
      @RequestMapping("save.do")
      @ResponseBody
-       public ServerResponse save(HttpSession session,
+       public ServerResponse save(HttpServletRequest request,
                                             Product product) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+         String token  = CookieUtil.readLoginToken(request);
+         if(StringUtils.isEmpty(token)){
+             return ServerResponse.createByError("获取不到session信息");
+         }
+         String strUser = RedisPoolUtil.get(token);
+         User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError("未登录");
         }
@@ -66,8 +73,13 @@ public class ProductManagerController {
      */
     @RequestMapping("set_sale_status.do")
     @ResponseBody
-    public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
+        String token  = CookieUtil.readLoginToken(request);
+        if(org.springframework.util.StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError("未登录");
         }
@@ -80,14 +92,18 @@ public class ProductManagerController {
 
     /**
      * 产品详情
-     * @param session
      * @param productId
      * @return
      */
      @RequestMapping("detail.do")
      @ResponseBody
-     public ServerResponse detail(HttpSession session,Integer productId){
-         User user = (User) session.getAttribute(Const.CURRENT_USER);
+     public ServerResponse detail(HttpServletRequest request,Integer productId){
+         String token  = CookieUtil.readLoginToken(request);
+         if(org.springframework.util.StringUtils.isEmpty(token)){
+             return ServerResponse.createByError("获取不到session信息");
+         }
+         String strUser = RedisPoolUtil.get(token);
+         User user  = JsonUtil.string2Obj(strUser,User.class);
          if (user == null) {
              return ServerResponse.createByError("未登录");
          }
@@ -103,9 +119,14 @@ public class ProductManagerController {
      @ResponseBody
      public ServerResponse<PageInfo> list(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,
-                                HttpSession session){
+                                HttpServletRequest request){
 
-         User user = (User) session.getAttribute(Const.CURRENT_USER);
+         String token  = CookieUtil.readLoginToken(request);
+         if(StringUtils.isEmpty(token)){
+             return ServerResponse.createByError("获取不到session信息");
+         }
+         String strUser = RedisPoolUtil.get(token);
+         User user  = JsonUtil.string2Obj(strUser,User.class);
          if (user == null) {
              return ServerResponse.createByError("未登录");
          }
@@ -120,7 +141,6 @@ public class ProductManagerController {
      * 产品搜索
      * @param pageNum
      * @param pageSize
-     * @param session
      * @param productName
      * @param productId
      * @return
@@ -129,12 +149,16 @@ public class ProductManagerController {
     @ResponseBody
     public ServerResponse<PageInfo> search(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,
-                                         HttpSession session,
+                                        HttpServletRequest request,
                                            String productName,
                                            String productId){
 
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
+        String token  = CookieUtil.readLoginToken(request);
+        if(org.springframework.util.StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
@@ -153,16 +177,21 @@ public class ProductManagerController {
   @RequestMapping("upload.do")
   @ResponseBody
   public ServerResponse<Map> upload(HttpServletRequest request,
-          HttpSession session,
+
           @RequestParam(value = "upload_file",required = false) MultipartFile file){
 
-     /* User user = (User) session.getAttribute(Const.CURRENT_USER);
+      String token  = CookieUtil.readLoginToken(request);
+      if(org.springframework.util.StringUtils.isEmpty(token)){
+          return ServerResponse.createByError("获取不到session信息");
+      }
+      String strUser = RedisPoolUtil.get(token);
+      User user  = JsonUtil.string2Obj(strUser,User.class);
       if (user == null) {
           return ServerResponse.createByError("未登录");
       }
       if (!iUserService.checkAdminRole(user).isSuccess()) {
           ServerResponse.createByError("当前操作需要管理员权限");
-      }*/
+      }
 
 
       //创建临时保存文件的文件夹
@@ -184,12 +213,18 @@ public class ProductManagerController {
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();
-     /*   User user = (User)session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(org.springframework.util.StringUtils.isEmpty(token)){
+            resultMap.put("success",false);
+            resultMap.put("msg","请登录管理员");
+            return resultMap;        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if(user == null){
             resultMap.put("success",false);
             resultMap.put("msg","请登录管理员");
             return resultMap;
-        }*/
+        }
         //富文本中对于返回值有自己的要求,我们使用是simditor所以按照simditor的要求进行返回
 //        {
 //            "success": true/false,

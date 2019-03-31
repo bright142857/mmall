@@ -6,8 +6,12 @@ import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.ICartService;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,15 +33,19 @@ public class CartController {
 
     /**
      * 购物车列表
-     * @param session
      * @return
      */
     @RequestMapping("list.do")
     @ResponseBody
-    public ServerResponse  list(HttpSession session
+    public ServerResponse  list(HttpServletRequest request
 
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -51,10 +59,15 @@ public class CartController {
      */
     @RequestMapping("add.do")
     @ResponseBody
-    public ServerResponse  add(HttpSession session,
+    public ServerResponse  add(HttpServletRequest request,
             Integer productId,
                                Integer count){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if(user == null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -70,17 +83,21 @@ public class CartController {
 
     /**
      * .更新购物车某个产品数量
-     * @param session
      * @param productId
      * @param count
      * @return
      */
     @RequestMapping("update.do")
     @ResponseBody
-    public ServerResponse  update(HttpSession session,
+    public ServerResponse  update(HttpServletRequest request,
                                Integer productId,
                                Integer count){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if(user == null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -93,17 +110,21 @@ public class CartController {
 
     /**
      * 移除购物车某个产品
-     * @param session
      * @param
      * @param
      * @return
      */
     @RequestMapping("delete_product.do")
     @ResponseBody
-    public ServerResponse  deleteProduct(HttpSession session,
+    public ServerResponse  deleteProduct(HttpServletRequest request,
                                   String productIds
                                  ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -115,9 +136,14 @@ public class CartController {
 
     @RequestMapping("select_all.do")
     @ResponseBody
-    public ServerResponse  selectAll(HttpSession session
+    public ServerResponse  selectAll(HttpServletRequest request
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -127,9 +153,14 @@ public class CartController {
     //全不选
     @RequestMapping("un_select_all.do")
     @ResponseBody
-    public ServerResponse  unSelectAll(HttpSession session
+    public ServerResponse  unSelectAll(HttpServletRequest request
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -139,10 +170,15 @@ public class CartController {
     //选中单个
     @RequestMapping("select.do")
     @ResponseBody
-    public ServerResponse  select(HttpSession session,
+    public ServerResponse  select(HttpServletRequest request,
                                   Integer productId
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -153,10 +189,15 @@ public class CartController {
 
     @RequestMapping("un_select.do")
     @ResponseBody
-    public ServerResponse  unSelect(HttpSession session,
+    public ServerResponse  unSelect(HttpServletRequest request,
                                   Integer productId
     ){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -166,8 +207,13 @@ public class CartController {
     //产品数量
     @RequestMapping("get_cart_product_count.do")
     @ResponseBody
-    public ServerResponse getCartProductCount(HttpSession session){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse getCartProductCount(HttpServletRequest request){
+        String token  = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(token)){
+            return ServerResponse.createByError("获取不到session信息");
+        }
+        String strUser = RedisPoolUtil.get(token);
+        User user  = JsonUtil.string2Obj(strUser,User.class);
         if (user == null) {
             return ServerResponse.createBySuccess(0);
         }
