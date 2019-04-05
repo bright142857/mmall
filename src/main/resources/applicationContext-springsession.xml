@@ -13,12 +13,12 @@
         <property name="maxInactiveIntervalInSeconds" value="1800" />
     </bean>
 
-    <!--<bean id="defaultCookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+    <bean id="defaultCookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
         <property name="domainName" value=".bright.wang" />
         <property name="useHttpOnlyCookie" value="true" />
         <property name="cookiePath" value="/" />
         <property name="cookieMaxAge" value="31536000" />
-    </bean>-->
+    </bean>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="20"/>
