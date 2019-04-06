@@ -55,6 +55,7 @@ public class SpringSessionUserController {
     @RequestMapping(value = "logout.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session){
+      //  int i = 9/0;
         session.removeAttribute(Const.CURRENT_USER);
       /*  String token  = CookieUtil.readLoginToken(request);
         CookieUtil.delLoginToken(request,response);
