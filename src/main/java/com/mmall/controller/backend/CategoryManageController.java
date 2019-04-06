@@ -38,7 +38,7 @@ public class CategoryManageController {
     public ServerResponse<List<Category>> getCategory(
             HttpServletRequest request,
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -50,7 +50,7 @@ public class CategoryManageController {
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
 
-        }
+        }*/
         return iCategoryService.getCategory(categoryId);
     }
 
@@ -58,7 +58,6 @@ public class CategoryManageController {
      * ####增加节点
 
 
-     * @param session
      * @param categoryId
      * @param categoryName
      * @return
@@ -70,17 +69,18 @@ public class CategoryManageController {
              @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId,
             String categoryName
         ){
-        String token  = CookieUtil.readLoginToken(request);
+      /*  String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
         String strUser = RedisShardedPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+             if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
-        }
+        }*/
         return iCategoryService.addCategory(categoryId,categoryName);
     }
 
@@ -93,7 +93,7 @@ public class CategoryManageController {
     @RequestMapping("set_category_name.do")
     @ResponseBody
     public  ServerResponse<String> setCategoryName(HttpServletRequest request,Integer categoryId,String categoryName){
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -104,14 +104,13 @@ public class CategoryManageController {
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
-        }
+        }*/
         return iCategoryService.setCategoryName(categoryId, categoryName);
     }
 
 
     /**
      * 获取当前分类id及递归子节点categoryId
-     * @param session
      * @param categoryId
      * @return
      */
@@ -120,7 +119,7 @@ public class CategoryManageController {
     public ServerResponse<List<Integer>> getDeepCategory(
             HttpServletRequest request,
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -132,7 +131,7 @@ public class CategoryManageController {
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
 
-        }
+        }*/
 
         return iCategoryService.getDeepCategory(categoryId);
     }

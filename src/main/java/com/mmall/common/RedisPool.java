@@ -12,8 +12,8 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 public class RedisPool {
     private static JedisPool pool;
-    private static  String     redisIp    = PropertiesUtil.getProperty("redis.ip");
-    private static  int        redisPort  = Integer.parseInt(PropertiesUtil.getProperty("redis.port"));
+    private static  String     redisIp    = PropertiesUtil.getProperty("redis1.ip");
+    private static  int        redisPort  = Integer.parseInt(PropertiesUtil.getProperty("redis1.port"));
     // 最大连接数
     private static  int        maxTotal   = Integer.parseInt(PropertiesUtil.getProperty("redis.max.total","20"));
     // 最大空闲数

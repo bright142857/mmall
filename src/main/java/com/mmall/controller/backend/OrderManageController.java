@@ -39,28 +39,30 @@ public class OrderManageController {
     public ServerResponse<PageInfo> orderList(HttpServletRequest request, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
         String strUser = RedisShardedPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if (user == null) {
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
         }
         if (iUserService.checkAdminRole(user).isSuccess()) {
             //填充我们增加产品的业务逻辑
-            return iOrderService.manageList(pageNum, pageSize);
+
         } else {
             return ServerResponse.createByError("无权限操作");
-        }
+        }*/
+        return iOrderService.manageList(pageNum, pageSize);
     }
 
     @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse<OrderVo> orderDetail(HttpServletRequest request, Long orderNo) {
 
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -76,7 +78,8 @@ public class OrderManageController {
             return iOrderService.manageDetail(orderNo);
         } else {
             return ServerResponse.createByError("无权限操作");
-        }
+        }*/
+        return iOrderService.manageDetail(orderNo);
     }
 
 
@@ -84,7 +87,7 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<PageInfo> orderSearch(HttpServletRequest request, Long orderNo, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -99,7 +102,8 @@ public class OrderManageController {
             return iOrderService.manageSearch(orderNo, pageNum, pageSize);
         } else {
             return ServerResponse.createByError("无权限操作");
-        }
+        }*/
+        return iOrderService.manageSearch(orderNo, pageNum, pageSize);
     }
 
 
@@ -107,7 +111,7 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<String> orderSendGoods(HttpServletRequest request, Long orderNo) {
 
-        String token  = CookieUtil.readLoginToken(request);
+     /*   String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -123,6 +127,7 @@ public class OrderManageController {
             return iOrderService.manageSendGoods(orderNo);
         } else {
             return ServerResponse.createByError("无权限操作");
-        }
+        }*/
+        return iOrderService.manageSendGoods(orderNo);
     }
 }

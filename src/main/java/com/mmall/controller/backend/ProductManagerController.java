@@ -44,7 +44,7 @@ public class ProductManagerController {
      @ResponseBody
        public ServerResponse save(HttpServletRequest request,
                                             Product product) {
-         String token  = CookieUtil.readLoginToken(request);
+        /* String token  = CookieUtil.readLoginToken(request);
          if(StringUtils.isEmpty(token)){
              return ServerResponse.createByError("获取不到session信息");
          }
@@ -56,9 +56,9 @@ public class ProductManagerController {
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
 
-        }
+        }*/
 
-
+        // 权限校验拦截器完成
         return iProductService.save(product);
     }
 
@@ -71,7 +71,7 @@ public class ProductManagerController {
     @RequestMapping("set_sale_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(org.springframework.util.StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
@@ -82,7 +82,8 @@ public class ProductManagerController {
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
-        }
+        }*/
+
         return iProductService.setSaleStatus(productId, status);
 
     }
@@ -95,7 +96,7 @@ public class ProductManagerController {
      @RequestMapping("detail.do")
      @ResponseBody
      public ServerResponse detail(HttpServletRequest request,Integer productId){
-         String token  = CookieUtil.readLoginToken(request);
+        /* String token  = CookieUtil.readLoginToken(request);
          if(org.springframework.util.StringUtils.isEmpty(token)){
              return ServerResponse.createByError("获取不到session信息");
          }
@@ -106,7 +107,7 @@ public class ProductManagerController {
          }
          if (!iUserService.checkAdminRole(user).isSuccess()) {
              ServerResponse.createByError("当前操作需要管理员权限");
-         }
+         }*/
         return iProductService.detail(productId);
      }
      /*
@@ -117,6 +118,7 @@ public class ProductManagerController {
      public ServerResponse<PageInfo> list(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,
                                 HttpServletRequest request){
+/*
 
          String token  = CookieUtil.readLoginToken(request);
          if(StringUtils.isEmpty(token)){
@@ -130,6 +132,7 @@ public class ProductManagerController {
          if (!iUserService.checkAdminRole(user).isSuccess()) {
              ServerResponse.createByError("当前操作需要管理员权限");
          }
+*/
 
          return iProductService.list(pageNum,pageSize);
      }
@@ -150,17 +153,18 @@ public class ProductManagerController {
                                            String productName,
                                            String productId){
 
-        String token  = CookieUtil.readLoginToken(request);
+      /*  String token  = CookieUtil.readLoginToken(request);
         if(org.springframework.util.StringUtils.isEmpty(token)){
             return ServerResponse.createByError("获取不到session信息");
         }
         String strUser = RedisShardedPoolUtil.get(token);
-        User user  = JsonUtil.string2Obj(strUser,User.class);        if (user == null) {
+        User user  = JsonUtil.string2Obj(strUser,User.class);
+        if (user == null) {
             return ServerResponse.createByError("未登录");
         }
         if (!iUserService.checkAdminRole(user).isSuccess()) {
             ServerResponse.createByError("当前操作需要管理员权限");
-        }
+        }*/
 
         return iProductService.search(pageNum,pageSize,productName,productId);
     }
@@ -177,7 +181,7 @@ public class ProductManagerController {
 
           @RequestParam(value = "upload_file",required = false) MultipartFile file){
 
-      String token  = CookieUtil.readLoginToken(request);
+      /*String token  = CookieUtil.readLoginToken(request);
       if(org.springframework.util.StringUtils.isEmpty(token)){
           return ServerResponse.createByError("获取不到session信息");
       }
@@ -188,7 +192,7 @@ public class ProductManagerController {
       }
       if (!iUserService.checkAdminRole(user).isSuccess()) {
           ServerResponse.createByError("当前操作需要管理员权限");
-      }
+      }*/
 
 
       //创建临时保存文件的文件夹
@@ -210,7 +214,7 @@ public class ProductManagerController {
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();
-        String token  = CookieUtil.readLoginToken(request);
+       /* String token  = CookieUtil.readLoginToken(request);
         if(org.springframework.util.StringUtils.isEmpty(token)){
             resultMap.put("success",false);
             resultMap.put("msg","请登录管理员");
@@ -221,7 +225,7 @@ public class ProductManagerController {
             resultMap.put("success",false);
             resultMap.put("msg","请登录管理员");
             return resultMap;
-        }
+        }*/
         //富文本中对于返回值有自己的要求,我们使用是simditor所以按照simditor的要求进行返回
 //        {
 //            "success": true/false,
