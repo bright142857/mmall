@@ -38,14 +38,15 @@ public class ProductServiceImpl implements IProductService {
      * @return
      */
     public ServerResponse save(Product product) {
-        if (product.getId() == null) {
-
-          // 处理主图，默认第一张
+       // 处理主图，默认第一张
             if(StringUtils.isNotEmpty(product.getSubImages())){
                 String[] subimgs = product.getSubImages().split(",");
                 product.setMainImage(subimgs[0]);
             }
 
+        if (product.getId() == null) {
+
+          
             //新增
             int reusltCount = productMapper.insert(product);
             if (reusltCount < 1) {
