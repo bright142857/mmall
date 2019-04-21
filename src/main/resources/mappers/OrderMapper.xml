@@ -230,6 +230,20 @@
     ORDER BY  create_time desc
   </select>
 
-
+  <!--查询未支付超时的订单-->
+  <select id="selectOrderByCreateTime" resultMap="BaseResultMap" parameterType="map">
+      SELECT
+      <include refid="Base_Column_List"/>
+    FROM  MMALL_ORDER WHERE STATUS = #{status} AND
+    <![CDATA[
+     CREATE_TIME <= #{date}
+    ]]>
+    order by create_time desc
+  </select>
+ <!-- 关闭订单-->
+  <update id="closeOrder" parameterType="int">
+    update mmall_order set status = 0 where id=#{id}
+    for update
+  </update>
 
 </mapper>
