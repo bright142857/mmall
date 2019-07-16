@@ -21,6 +21,24 @@ public class UserController {
     private IUserService iUserService;
 
 
+    /**
+     * 用户登录方法
+     * @param username
+     * @param password
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "login.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<User> login(HttpSession session, String username, String password){
+
+        ServerResponse<User>  serverResponse = iUserService.login(username,password);
+        if(serverResponse.isSuccess()){
+            session.setAttribute(Const.CURRENT_USER,serverResponse.getData());
+        }
+
+        return serverResponse;
+    }
 
 
 
