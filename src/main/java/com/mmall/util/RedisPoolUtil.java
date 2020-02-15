@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
 /**
  * @author wangmingliangwx
  * @version $Id: RedisPoolUtil, v 0.1 2019/3/28 14:59 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 @Slf4j
 public class RedisPoolUtil {

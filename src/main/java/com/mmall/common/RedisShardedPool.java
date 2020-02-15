@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author wangmingliangwx
  * @version $Id: RedisPool, v 0.1 2019/3/28 14:27 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 public class RedisShardedPool {
     private static ShardedJedisPool pool;

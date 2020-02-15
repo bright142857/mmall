@@ -20,8 +20,8 @@
     <context:property-placeholder location="classpath:datasource.properties"/>
 
 
-
-    <!--<task:annotation-driven/>-->
+<!--        定时任务-->
+    <task:annotation-driven/>
 <!--
     <import resource="applicationContext-springsession.xml"/>
 -->

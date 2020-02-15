@@ -8,7 +8,7 @@ import redis.clients.jedis.ShardedJedis;
 /**
  * @author wangmingliangwx
  * @version $Id: RedisShardedPoolUtil, v 0.1 2019/3/28 14:59 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 @Slf4j
 public class RedisShardedPoolUtil {
@@ -100,6 +100,9 @@ public class RedisShardedPoolUtil {
         RedisShardedPool.returnResource(jedis);
         return result;
     }
+
+
+
 
 
 

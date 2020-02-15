@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * @author wangmingliangwx
  * @version $Id: SessionExpireFliter, v 0.1 2019/3/31 10:17 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 public class SessionExpireFliter implements Filter {
     @Override

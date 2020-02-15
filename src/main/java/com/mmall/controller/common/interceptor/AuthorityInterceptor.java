@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @author wangmingliangwx
  * @version $Id: AuthorityInterceptor, v 0.1 2019/4/6 10:01 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 @Slf4j
 public class AuthorityInterceptor implements HandlerInterceptor {

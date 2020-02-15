@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 /**
  * @author wangmingliangwx
  * @version $Id: JsonUtil, v 0.1 2019/3/29 11:05 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 @Slf4j
 public class JsonUtil {

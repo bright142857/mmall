@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author wangmingliangwx
  * @version $Id: ExceptionResolver, v 0.1 2019/4/5 23:02 wangmingliangwx Exp$
- * @Email bright142857@foxmail.com
+ * @Email mingliang.online@foxmail.com
  */
 @Slf4j
 @Component
