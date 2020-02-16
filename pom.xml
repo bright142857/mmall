@@ -265,11 +265,11 @@
       <version>2.9.0</version>
     </dependency>
 
-<!--    <dependency>-->
-<!--      <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-<!--      <artifactId>jackson-dataformat-avro</artifactId>-->
-<!--      <version>2.9.0</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-avro</artifactId>
+      <version>2.9.0</version>
+    </dependency>
 
   </dependencies>
 
