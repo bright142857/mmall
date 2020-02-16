@@ -234,7 +234,7 @@
   <select id="selectOrderByCreateTime" resultMap="BaseResultMap" parameterType="map">
       SELECT
       <include refid="Base_Column_List"/>
-    FROM  MMALL_ORDER WHERE STATUS = #{status} AND
+    FROM  mmall_order WHERE STATUS = #{status} AND
     <![CDATA[
      CREATE_TIME <= #{date}
     ]]>
