@@ -100,12 +100,12 @@ public class UserController {
     public ServerResponse<User> getUserInfo(HttpServletRequest request){
         String token  = CookieUtil.readLoginToken(request);
        if(StringUtils.isEmpty(token)){
-           return ServerResponse.createByError("获取不到session信息");
+           return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
        }
        String strUser = RedisShardedPoolUtil.get(token);
        User user  = JsonUtil.string2Obj(strUser,User.class);
         if(user == null){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
        }
        return ServerResponse.createBySuccess(user);
     }
@@ -158,7 +158,7 @@ public class UserController {
     public ServerResponse<String> resetPassword(HttpServletRequest request,String passwordOld,String passwordNew){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -178,7 +178,7 @@ public class UserController {
     public ServerResponse<User> update_information(HttpServletRequest request,User user){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User currentUser  = JsonUtil.string2Obj(strUser,User.class);
@@ -206,7 +206,7 @@ public class UserController {
     public ServerResponse<User> get_information(HttpServletRequest request){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User currentUser  = JsonUtil.string2Obj(strUser,User.class);

@@ -37,7 +37,7 @@ public class ShippingController {
     public ServerResponse add(HttpServletRequest request,Shipping shipping){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){
@@ -52,7 +52,7 @@ public class ShippingController {
     public ServerResponse del(HttpServletRequest request, Integer shippingId){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -67,7 +67,7 @@ public class ShippingController {
     public ServerResponse update(HttpServletRequest request,Shipping shipping){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -83,7 +83,7 @@ public class ShippingController {
     public ServerResponse<Shipping> select(HttpServletRequest request,Integer shippingId){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -101,7 +101,7 @@ public class ShippingController {
                                          HttpServletRequest request){
         String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);        if(user ==null){

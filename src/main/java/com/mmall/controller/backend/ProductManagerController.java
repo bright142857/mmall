@@ -46,7 +46,7 @@ public class ProductManagerController {
                                             Product product) {
         /* String token  = CookieUtil.readLoginToken(request);
          if(StringUtils.isEmpty(token)){
-             return ServerResponse.createByError("获取不到session信息");
+             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
          }
          String strUser = RedisShardedPoolUtil.get(token);
          User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -73,7 +73,7 @@ public class ProductManagerController {
     public ServerResponse setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
        /* String token  = CookieUtil.readLoginToken(request);
         if(org.springframework.util.StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -98,7 +98,7 @@ public class ProductManagerController {
      public ServerResponse detail(HttpServletRequest request,Integer productId){
         /* String token  = CookieUtil.readLoginToken(request);
          if(org.springframework.util.StringUtils.isEmpty(token)){
-             return ServerResponse.createByError("获取不到session信息");
+             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
          }
          String strUser = RedisShardedPoolUtil.get(token);
          User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -122,7 +122,7 @@ public class ProductManagerController {
 
          String token  = CookieUtil.readLoginToken(request);
          if(StringUtils.isEmpty(token)){
-             return ServerResponse.createByError("获取不到session信息");
+             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
          }
          String strUser = RedisShardedPoolUtil.get(token);
          User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -155,7 +155,7 @@ public class ProductManagerController {
 
       /*  String token  = CookieUtil.readLoginToken(request);
         if(org.springframework.util.StringUtils.isEmpty(token)){
-            return ServerResponse.createByError("获取不到session信息");
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -183,7 +183,7 @@ public class ProductManagerController {
 
       /*String token  = CookieUtil.readLoginToken(request);
       if(org.springframework.util.StringUtils.isEmpty(token)){
-          return ServerResponse.createByError("获取不到session信息");
+          return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
       }
       String strUser = RedisShardedPoolUtil.get(token);
       User user  = JsonUtil.string2Obj(strUser,User.class);
