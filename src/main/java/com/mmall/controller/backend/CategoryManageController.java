@@ -40,7 +40,7 @@ public class CategoryManageController {
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
        /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+            return ServerResponse.createByError("请先登录");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -71,7 +71,7 @@ public class CategoryManageController {
         ){
       /*  String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+            return ServerResponse.createByError("请先登录");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -95,7 +95,7 @@ public class CategoryManageController {
     public  ServerResponse<String> setCategoryName(HttpServletRequest request,Integer categoryId,String categoryName){
        /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+            return ServerResponse.createByError("请先登录");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);
@@ -121,7 +121,7 @@ public class CategoryManageController {
             @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
        /* String token  = CookieUtil.readLoginToken(request);
         if(StringUtils.isEmpty(token)){
-            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+            return ServerResponse.createByError("请先登录");
         }
         String strUser = RedisShardedPoolUtil.get(token);
         User user  = JsonUtil.string2Obj(strUser,User.class);

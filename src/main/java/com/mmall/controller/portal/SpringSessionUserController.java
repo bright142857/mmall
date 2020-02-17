@@ -74,13 +74,13 @@ public class SpringSessionUserController {
     public ServerResponse<User> getUserInfo(HttpSession session){
        /* String token  = CookieUtil.readLoginToken(request);
        if(StringUtils.isEmpty(token)){
-           return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+           return ServerResponse.createByError("请先登录");
        }
        String strUser = RedisShardedPoolUtil.get(token);
        User user  = JsonUtil.string2Obj(strUser,User.class);*/
       User user =  (User) session.getAttribute(Const.CURRENT_USER);
         if(user == null){
-            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
+            return ServerResponse.createByError("请先登录");
        }
        return ServerResponse.createBySuccess(user);
     }
