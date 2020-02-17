@@ -1,6 +1,7 @@
 package com.mmall.controller.portal;
 
 import com.mmall.common.Const;
+import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
@@ -83,6 +84,5 @@ public class SpringSessionUserController {
        }
        return ServerResponse.createBySuccess(user);
     }
-
 
 }
