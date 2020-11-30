@@ -3,39 +3,52 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mmall</artifactId>
+        <artifactId>mmall-service</artifactId>
         <groupId>com.mmall</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mmall-gateway</artifactId>
+    <artifactId>mmall-file</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <!-- 模块名及描述信息 -->
-    <name>mmall-gateway</name>
-    <description>mmall-gateway</description>
+    <name>mmall-file</name>
+    <description>mmall文件服务</description>
 
     <dependencies>
         <!--
-            Eureka 客户端, 客户端向 Eureka Server 注册的时候会提供一系列的元数据信息, 例如: 主机, 端口, 健康检查url等
-            Eureka Server 接受每个客户端发送的心跳信息, 如果在某个配置的超时时间内未接收到心跳信息, 实例会被从注册列表中移除
-        -->
+          Eureka 客户端, 客户端向 Eureka Server 注册的时候会提供一系列的元数据信息, 例如: 主机, 端口, 健康检查url等
+          Eureka Server 接受每个客户端发送的心跳信息, 如果在某个配置的超时时间内未接收到心跳信息, 实例会被从注册列表中移除
+      -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!-- 服务网关 -->
+        <!-- 引入 Feign, 可以以声明的方式调用微服务 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-    </dependencies>
+        <!-- 引入 Web 功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- ftpclient -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.1</version>
+        </dependency>
 
-    <!--
-        SpringBoot的Maven插件, 能够以Maven的方式为应用提供SpringBoot的支持，可以将
-        SpringBoot应用打包为可执行的jar或war文件, 然后以通常的方式运行SpringBoot应用
-     -->
+        <!-- 引入通用模块-->
+        <dependency>
+            <groupId>com.mmall</groupId>
+            <artifactId>mmall-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -46,10 +59,9 @@
         <resources>
             <resource>
                 <directory>src/main/resources.${deploy.type}</directory>
-                 <!-- 没有jsp文件-->
-               <!-- <excludes>
+                <excludes>
                     <exclude>*.jsp</exclude>
-                </excludes>-->
+                </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
@@ -79,7 +91,4 @@
             </properties>
         </profile>
     </profiles>
-
-
-
 </project>

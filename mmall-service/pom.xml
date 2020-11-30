@@ -11,6 +11,10 @@
 
     <artifactId>mmall-service</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mmall-file</module>
+        <module>mmall-common</module>
+    </modules>
     <packaging>pom</packaging>
 
 
